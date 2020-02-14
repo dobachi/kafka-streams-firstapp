@@ -40,7 +40,7 @@ public class PipeWithKey {
         final StreamsBuilder builder = new StreamsBuilder();
 
         KStream<String, String> raw = builder.stream("streams-plaintext-input");
-        raw.map((key, value ) -> new KeyValue<>(value.split(" ")[0], value)).to("streams-pipe-output");
+        raw.map((key, value) -> new KeyValue<>(value.split(" ")[0], value)).to("streams-pipe-output");
 
         final Topology topology = builder.build();
         final KafkaStreams streams = new KafkaStreams(topology, props);
