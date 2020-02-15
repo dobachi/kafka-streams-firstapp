@@ -52,7 +52,12 @@ public class WordCount {
 
         wordCount.foreach((key, value) -> System.out.println("key: " + key + ", value: " + value));
 
+/*
+        // Use this to write value as String instead of just writing result to topic directly
         wordCount.map((key, value) -> new KeyValue<>(key, String.valueOf(value))).to("streams-wordcount-output", Produced.with(Serdes.String(), Serdes.String()));
+*/
+
+        wordCount.to("streams-wordcount-output", Produced.with(Serdes.String(), Serdes.Long()));
 
         final Topology topology = builder.build();
         final KafkaStreams streams = new KafkaStreams(topology, props);
